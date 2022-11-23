@@ -6,13 +6,13 @@
 /*   By: sboetti <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:08:15 by sboetti           #+#    #+#             */
-/*   Updated: 2022/11/23 14:39:00 by sboetti          ###   ########.fr       */
+/*   Updated: 2022/11/23 16:00:20 by sboetti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_printf(const char *s)
+int	ft_printf(const char *s, va_arg)
 {
 	int		i;
 
