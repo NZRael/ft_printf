@@ -5,21 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sboetti <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/28 10:10:53 by sboetti           #+#    #+#             */
-/*   Updated: 2022/11/29 11:50:21 by sboetti          ###   ########.fr       */
+/*   Created: 2022/11/30 09:35:05 by sboetti           #+#    #+#             */
+/*   Updated: 2022/11/30 10:19:12 by sboetti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-static void	ft_putadress(void *arg)
+static void	ft_puthex(int n, char *base, int *count)
 {
-	unsigned long	adr;
+	int	size;
+
+	size = ft_strlen(base);
+	if (n >= size)
+	{
+		ft_puthex(n / size, base, count);
+		ft_puthex(n % size, base, count);
+	}
+	else
+	{
+		ft_putchar_fd(base[n], 1, count);
+		count++;
+	}
+}
+
+static void	ft_putadress(void *arg, int *count)
+{
+	unsigned int	adr;
 	char			*base;
 	char			ptr[12];
 	int				i;
 
-	adr = (unsigned long)arg;
+	adr = (unsigned int)arg;
 	base = "0123456789abcdef";
 	i = 11;
 	while (((adr / 16) > 0) || (i >= 11))
@@ -29,31 +46,27 @@ static void	ft_putadress(void *arg)
 		i--;
 	}
 	ptr[i] = base[(adr % 16)];
-	ft_putstr_fd("0x", 1);
+	ft_putstr_fd("0x", 1, count);
 	while (i < 12)
+	{
 		write(1, &ptr[i++], 1);
+		*count += 1;
+	}
 	return ;
 }
 
-const char	*ft_arguments(const char *str, va_list arg)
+void	ft_arguments(char str, va_list arg, int *count)
 {
-	if (*str == 'c')
-		ft_putchar_fd(va_arg(arg, int), 1);
-	else if (*str == 'd')
-		ft_putd(va_arg(arg, int));
-	else if (*str == 's')
-	{
-		if (!va_arg(arg, char *))
-			ft_putstr_fd("(null)", 1);
-		else
-			ft_putstr_fd(va_arg(arg, char *), 1);
-	}
-	else if (*str == 'p')
-		ft_putadress(va_arg(arg, void *));
-	else if (*str == 'i')
-		ft_putnbr_fd(va_arg(arg, int), 1);
-	else
-		return (0);
-	str++;
-	return (str);
+	if (str == 'c')
+		ft_putchar_fd(va_arg(arg, int), 1, count);
+	else if (str == 's')
+		ft_putstr_fd(va_arg(arg, char *), 1, count);
+	else if (str == 'p')
+		ft_putadress(va_arg(arg, void *), count);
+	else if (str == 'i' || str == 'd')
+		ft_putnbr_fd(va_arg(arg, int), 1, count);
+	else if (str == 'x')
+		ft_puthex(va_arg(arg, int), "0123456789abcdef", count);
+	else if (str == 'X')
+		ft_puthex(va_arg(arg, int), "0123456789ABCDEF", count);
 }

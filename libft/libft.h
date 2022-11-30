@@ -6,7 +6,7 @@
 /*   By: sboetti <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:13:35 by sboetti           #+#    #+#             */
-/*   Updated: 2022/11/21 13:58:04 by sboetti          ###   ########.fr       */
+/*   Updated: 2022/11/30 10:12:53 by sboetti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ char	*ft_itoa(int n);
 char	**ft_split(const char *s, char c);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char *str, int fd);
-void	ft_putendl_fd(char *str, int fd);
-void	ft_putnbr_fd(int n, int fd);
+void	ft_putchar_fd(char c, int fd, int *count);
+void	ft_putstr_fd(char *str, int fd, int *count);
+void	ft_putendl_fd(char *str, int fd, int *count);
+void	ft_putnbr_fd(int n, int fd, int *count);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);

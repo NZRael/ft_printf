@@ -1,39 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sboetti <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 13:08:15 by sboetti           #+#    #+#             */
-/*   Updated: 2022/11/30 10:14:32 by sboetti          ###   ########.fr       */
+/*   Created: 2022/11/30 09:35:27 by sboetti           #+#    #+#             */
+/*   Updated: 2022/11/30 09:46:30 by sboetti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	ft_printf(const char *s, ...)
-{
-	int		i;
-	int		count;
-	va_list	arg;
+# include "libft/libft.h"
+# include <stdarg.h>
 
-	va_start(arg, s);
-	i = 0;
-	count = 0;
-	while (s[i])
-	{
-		if (s[i] == '%')
-		{
-			ft_arguments(s[i + 1], arg, &count);
-			i++;
-		}
-		else
-		{
-			ft_putchar_fd(s[i], 1, &count);
-		}
-		i++;
-	}
-	va_end(arg);
-	return (count);
-}
+int			ft_printf(const char *s, ...);
+void		ft_arguments(char str, va_list arg, int *count);
+
+#endif
