@@ -6,7 +6,7 @@
 /*   By: sboetti <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 13:08:15 by sboetti           #+#    #+#             */
-/*   Updated: 2022/11/30 10:14:32 by sboetti          ###   ########.fr       */
+/*   Updated: 2022/11/30 13:18:02 by sboetti          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,15 @@ int	ft_printf(const char *s, ...)
 			i++;
 		}
 		else
-		{
 			ft_putchar_fd(s[i], 1, &count);
-		}
 		i++;
 	}
 	va_end(arg);
 	return (count);
 }
+/*
+int	main()
+{
+	printf("%i\n", printf("%p\n", (void *)-14523));
+	ft_printf("%i\n", ft_printf("%p\n", (void *)-14523));
+}*/
